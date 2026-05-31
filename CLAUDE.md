@@ -11,7 +11,7 @@ A monorepo with two deployables:
 > disk yet. The conventions below define how new code should be created.
 
 ## Conventions
-- Java: package `com.example.bookmarks`. Constructor injection, records for DTOs,
+- Java: package `com.abhiroy.bookmarks`. Constructor injection, records for DTOs,
   `jakarta.validation` for input validation. No field injection.
 - REST: base path `/api`. Return DTOs, never JPA entities, from controllers.
 - Tests required for every service method and controller (JUnit 5 + MockMvc).
