@@ -1,0 +1,37 @@
+databases:
+  - name: bookmarks-db
+    databaseName: bookmarks
+    user: bookmarks
+    plan: free
+
+services:
+  - type: web
+    name: bookmarks-api
+    runtime: docker
+    dockerfilePath: api/Dockerfile
+    dockerContext: api
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: postgres
+      - key: DB_HOST
+        fromDatabase:
+          name: bookmarks-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: bookmarks-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: bookmarks-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: bookmarks-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: bookmarks-db
+          property: password
