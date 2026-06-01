@@ -33,7 +33,9 @@ export class ApiError extends Error {
   }
 }
 
-const BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080/api').replace(/\/+$/, '')
+const BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080/api'
+).replace(/\/+$/, '')
 
 // Turns a non-2xx Response into a thrown ApiError, surfacing ProblemDetail
 // validation messages when present.
@@ -59,7 +61,9 @@ export async function listBookmarks(signal?: AbortSignal): Promise<Bookmark[]> {
   return response.json() as Promise<Bookmark[]>
 }
 
-export async function createBookmark(input: CreateBookmarkInput): Promise<Bookmark> {
+export async function createBookmark(
+  input: CreateBookmarkInput,
+): Promise<Bookmark> {
   const response = await fetch(`${BASE_URL}/bookmarks`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -70,8 +74,11 @@ export async function createBookmark(input: CreateBookmarkInput): Promise<Bookma
 }
 
 export async function deleteBookmark(id: string): Promise<void> {
-  const response = await fetch(`${BASE_URL}/bookmarks/${encodeURIComponent(id)}`, {
-    method: 'DELETE',
-  })
+  const response = await fetch(
+    `${BASE_URL}/bookmarks/${encodeURIComponent(id)}`,
+    {
+      method: 'DELETE',
+    },
+  )
   if (!response.ok) await fail(response)
 }
